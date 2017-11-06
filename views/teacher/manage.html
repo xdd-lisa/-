@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>学IT - 后台管理系统</title>
+    <?php include $_SERVER["DOCUMENT_ROOT"]."/views/public/css.html"?>
+    <link rel="stylesheet" href="/views/assets/bootstrap-datepicker/css/bootstrap-datepicker3.css">
+</head>
+<body>
+    
+    <!-- 侧边栏 -->
+    <?php include $_SERVER["DOCUMENT_ROOT"]."/views/public/aside.html"?>
+    <!-- 主体 -->
+    <div class="main">
+        <div class="container-fluid">
+            <!-- 头部 -->
+           <?php include $_SERVER["DOCUMENT_ROOT"]."/views/public/header.html"?>
+            <div class="body teacher">
+               <!-- 这是一个巨坑 -->
+            </div>
+        </div>
+    </div>
+<!-- 用来填坑的 -->
+    <script type="text/template" id="teacher-manage-tpl">
+         <!-- 面包屑 -->
+        <ol class="breadcrumb">
+            <li><a href="javascript:;">讲师管理</a></li>
+            <li class="active">{{title}}</li>
+        </ol>
+        <div class="teacher-add">
+            <form action="{{url}}" method="post" class="form-horizontal col-xs-offset-2">
+            <!-- 隐藏的表单，用来向后台发送tc_id的值 -->
+            <input type="hidden" name="tc_id" value="{{teacher.tc_id}}">
+
+                <div class="form-group">
+                    <label for="" class="col-xs-3 control-label">姓名</label>
+                    <div class="col-xs-4">
+                        <input type="text" class="form-control input-sm" placeholder="讲师名称" value="{{teacher.tc_name}}" name="tc_name" data-required data-conditional="forbidden" data-description="msgname" data-describedby="name">
+                    </div>
+                     <label id="name" class="col-xs-3 control-label" style="text-align: left; color:red;"></label>
+                </div>
+               
+
+                {{if !teacher.tc_id}}
+                <div class="form-group">
+                    <label for="" class="col-xs-3 control-label">密码</label>
+                    <div class="col-xs-4">
+                        <input type="password" class="form-control input-sm" name="tc_pass" value="{{teacher.tc_pass}}" data-required data-pattern="^[0-9A-Za-z]{6,15}$" data-description="msgpass" data-describedby="pass">
+                    </div>
+                    <label id="pass" class="col-xs-3 control-label" style="text-align: left; color:red;"></label>
+                </div>
+                {{/if}}
+
+                <div class="form-group">
+                    <label for="" class="col-xs-3 control-label">入职时间</label>
+                    <div class="col-xs-4">
+                        <input type="text" class="form-control input-sm" value="{{teacher.tc_join_date}}" name="tc_join_date" data-required data-description="msgdate" data-describedby="date">
+                    </div>
+                    <label id="date" class="col-xs-3 control-label" style="text-align: left; color:red;"></label>
+                </div>
+
+                <div class="form-group">
+                    <label for="" class="col-xs-3 control-label">类型</label>
+                    <div class="col-xs-2">
+                        <select name="tc_type" class="form-control input-sm">
+                            <option value="1" {{teacher.tc_type == "1"?'selected':''}}>讲师</option>
+                            <option value="0" {{teacher.tc_type == "0"?'selected':''}}>管理员</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="" class="col-xs-3 control-label">性别</label>
+                    <div class="col-xs-4">
+                        <label class="radio-inline">
+                            <input type="radio" {{teacher.tc_gender == "0"?'checked':''}} name="tc_gender" value="0"> 男
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" {{teacher.tc_gender == "1"?'checked':''}} name="tc_gender" value="1"> 女
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-7">
+                        <button class="btn btn-success btn-sm pull-right">{{btnText}}</button>
+                    </div>                          
+                </div>
+            </form>
+        </div>
+    </script>
+
+
+
+     <?php include $_SERVER["DOCUMENT_ROOT"]."/views/public/js.html"?>
+
+     <script>
+         require(["../static/js/teacher/manager"]);
+     </script>
+</body>
+</html>
